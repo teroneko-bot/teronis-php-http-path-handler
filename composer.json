@@ -1,0 +1,14 @@
+{
+    "name": "teronis-php/http-path-handler",
+    "autoload": {
+        "psr-4": {
+            "Teronis\\HttpPathHandler\\": "src/"
+        },
+        "files": [
+            "src/constants.php"
+        ]
+    },
+    "require": {
+        "marc-mabe/php-enum": "dev-master"
+    }
+}
