@@ -1,5 +1,6 @@
 {
     "name": "teronis-php/http-path-handler",
+    "type": "library",
     "autoload": {
         "psr-4": {
             "Teronis\\HttpPathHandler\\": "src/"
