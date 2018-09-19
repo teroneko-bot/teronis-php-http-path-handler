@@ -20,16 +20,17 @@ abstract class PathBase {
     }
 
     public function tryHandlePath($sharePoint) {
+        $pathMng = $sharePoint->pathMng;
         $args = new \stdClass;
         $args->{SHAREPOINT} = $sharePoint;
 
         foreach ($this->params as $param) {
-            if (!getPathManager()->hasAnyHttpMethodKeyring($param->getParamTypeSet(), $paramTypeValueIntersection)) {
+            if (!$pathMng->hasAnyHttpMethodKeyring($param->getParamTypeSet(), $paramTypeValueIntersection)) {
                 return;
             }
 
             $paramName = $param->getParamName();
-            $hasHttpKey = getPathManager()->hasAnyHttpKey($param, $firstKeyring, $paramTypeValueIntersection);
+            $hasHttpKey = $pathMng->hasAnyHttpKey($param, $firstKeyring, $paramTypeValueIntersection);
             $paramIsOptional = $param->getIsOptional();
 
             if (!$hasHttpKey && !$paramIsOptional) {
