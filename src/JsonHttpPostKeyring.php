@@ -1,7 +1,5 @@
 <?php namespace Teronis\HttpPathHandler;
 
-// use IHttpMethodKeyring;
-
 class JsonHttpPostKeyring implements IHttpMethodKeyring {
     private $isPrepared;
     private $deJsonObj;

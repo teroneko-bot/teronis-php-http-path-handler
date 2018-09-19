@@ -1,7 +1,5 @@
 <?php namespace Teronis\HttpPathHandler;
 
-// use Parameter;
-
 class Argument {
     public $param;
     public $value;

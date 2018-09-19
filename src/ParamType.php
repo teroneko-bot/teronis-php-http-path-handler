@@ -1,6 +1,6 @@
 <?php namespace Teronis\HttpPathHandler;
 
-use Mabe\Enum;
+use MabeEnum\Enum;
 
 class ParamType extends Enum {
     const GET = 1;

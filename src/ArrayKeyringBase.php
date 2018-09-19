@@ -1,8 +1,5 @@
 <?php namespace Teronis\HttpPathHandler;
 
-// use IHttpMethodKeyring;
-// use Exception;
-
 abstract class ArrayKeyringBase implements IHttpMethodKeyring {
     protected abstract function getArray(): array;
 

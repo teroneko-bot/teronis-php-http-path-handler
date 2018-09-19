@@ -1,9 +1,6 @@
 <?php namespace Teronis\HttpPathHandler;
 
 use MabeEnum\EnumSet;
-// use ParamType;
-// use Exception;
-// use UnexpectedValueException;
 
 class Parameter {
     const SEALED_EXCEPTION_TYPE_MESSAGE = "You cannot change the type after the class has been saeled.";

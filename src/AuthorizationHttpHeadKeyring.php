@@ -1,8 +1,5 @@
 <?php namespace Teronis\HttpPathHandler;
 
-// use IHttpMethodKeyring;
-// use Exception;
-
 class AuthorizationHttpHeadKeyring implements IHttpMethodKeyring {
     private $isPrepared;
     private $headerAuthType;

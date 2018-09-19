@@ -1,11 +1,5 @@
 <?php namespace Teronis\HttpPathHandler;
 
-// require_once __DIR__ . "/../vendor/autoload.php";
-// require_once __DIR__ . "constants.php";
-
-// use Parameter;
-// use Argument;
-
 abstract class PathBase {
     private $params;
     private $isSealed;
