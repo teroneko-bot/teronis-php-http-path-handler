@@ -1,5 +1,7 @@
 <?php namespace Teronis\HttpPathHandler;
 
+use MabeEnum\EnumSet;
+
 class PathManager {
     private static function getHttpPostKeyring(): ?IHttpMethodKeyring {
         if (array_key_exists("CONTENT_TYPE", $_SERVER)) {
