@@ -57,11 +57,10 @@ class PathManager {
         array_push($this->pathes, $path);
     }
 
-    public function handlePathesWithErrorHandling() {
+    public function handlePathesWithErrorHandling($callback) {
         try {
-            $pathManager->handlePathes();
+            $this->handlePathes();
         } catch (\Exception $error) {
-            $obj = getErrorResponseObject(REASON_EXCEPTION, "Eine Ausnahme ist aufgetreten.");
             $exceptions = [];
             $lastError = $error;
 
@@ -79,8 +78,7 @@ class PathManager {
                 array_push($exceptions, $lastErrorObj);
             } while (!is_null($lastError = $lastError->getPrevious()));
 
-            $obj->exceptions = $exceptions;
-            printResponseObjectAsJSON($obj);
+            $callback($exceptions);
         }
     }
 
