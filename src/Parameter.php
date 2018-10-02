@@ -7,7 +7,9 @@ class Parameter {
 
     const ALLOWED_TYPES = array(
         "bool" => "Parameter::isBool",
+        "boolean" => "Parameter::isBool",
         "int" => "is_numeric",
+        "integer" => "is_numeric",
         "float" => "is_numeric",
         "string" => "is_string",
         "array" => "is_array",
@@ -23,8 +25,8 @@ class Parameter {
         return $value !== "";
     }
 
-    private static function getTypeNotFoundException(): Exception {
-        return new Exception("The given type must be one of the types " . join("/", self::ALLOWED_TYPES));
+    private static function getTypeNotFoundException(): \Exception {
+        return new \Exception("The given type must be one of the types " . join("/", array_keys(self::ALLOWED_TYPES)));
     }
 
     public static function create(string $paramName, $comparisonValue = NULL): Parameter {
@@ -76,7 +78,7 @@ class Parameter {
             if ($this->convertArgumentValueWithTypeUnsafely($this->comparisonValue, $type)) {
                 $this->comparisonType = $type;
             } else {
-                throw new Exception("The value cannot be converted to type '$type'.");
+                throw new \Exception("The value cannot be converted to type '$type'.");
             }
         } else {
             $this->comparisonType = $type;
@@ -112,7 +114,7 @@ class Parameter {
 
     private function ensureUnsealedState() {
         if ($this->isSealed) {
-            throw new Exception(self::SEALED_EXCEPTION_TYPE_MESSAGE);
+            throw new \Exception(self::SEALED_EXCEPTION_TYPE_MESSAGE);
         }
     }
 
@@ -164,7 +166,7 @@ class Parameter {
         if ($this->isComparableTypeValid($value)) {
             $this->convertArgumentValueUnsafely($value);
         } else {
-            throw new UnexpectedValueException("Argument value was not convertable to " . $this->comparisonType . ".");
+            throw new \UnexpectedValueException("Argument value was not convertable to " . $this->comparisonType . ".");
         }
     }
 
@@ -192,7 +194,7 @@ class Parameter {
         if ($this->hasComparisonValue()) {
             return $this->compareComparisonValueToUnsafely($value);
         } else {
-            throw new Exception("Comparison value has not been specified at creation.");
+            throw new \Exception("Comparison value has not been specified at creation.");
         }
     }
 
@@ -208,7 +210,7 @@ class Parameter {
         if ($this->hasComparisonType()) {
             return $this->isComparableTypeValidUnsafely($httpVarValue);
         } else {
-            throw new Exception("Comparison type has not been specified at creation.");
+            throw new \Exception("Comparison type has not been specified at creation.");
         }
     }
 

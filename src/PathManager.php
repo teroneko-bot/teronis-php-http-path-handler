@@ -100,7 +100,7 @@ class PathManager
 
         foreach ($this->pathes as $path) {
             $sharePoint->name = get_class($path);
-            $sharePoint->pathMng = $this;
+            $sharePoint->pathManager = $this;
 
             try {
                 $path->tryHandlePath($sharePoint);
@@ -129,7 +129,7 @@ class PathManager
         return $isNotEmpty;
     }
 
-    public function hasAnyHttpKey(Parameter $param, &$firstKeyring = null, ?array $paramTypeValueIntersection = null)
+    public function hasAnyHttpKey(Parameter $param, &$outFirstKeyring = null, ?array $paramTypeValueIntersection = null)
     {
         $paramTypeSet = $param->getParamTypeSet();
         $hasAnyKeyring = false;
@@ -147,7 +147,7 @@ class PathManager
                 $keyring = $this->httpMethodKeyrings[$paramTypeValue];
 
                 if ($keyring->hasHttpKey($paramName)) {
-                    $firstKeyring = $keyring;
+                    $outFirstKeyring = $keyring;
                     return true;
                 }
 
