@@ -87,12 +87,16 @@ class Parameter {
         return $this;
     }
 
-    public function asParamType(int $paramType): Parameter {
+    public function asParamType(int $paramType, ?int $paramType2 = null, ?int $paramTypeX = null): Parameter {
         $this->ensureUnsealedState();
         $this->paramTypeSet = self::createParamTypeSet();
         $args = func_get_args();
 
         while ($arg = current($args)) {
+            if (is_null($arg)) {
+                continue;
+            }
+
             $this->paramTypeSet->attach($arg);
             next($args);
         }
