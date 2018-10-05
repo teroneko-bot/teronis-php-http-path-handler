@@ -1,0 +1,9 @@
+{
+    "phpfmt.psr2": false,
+    "phpfmt.passes": [
+        "StripSpaceWithinControlStructures",
+    ],
+    "phpfmt.exclude": [
+        "AllmanStyleBraces",
+    ],
+}

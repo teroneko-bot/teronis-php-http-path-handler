@@ -2,10 +2,8 @@
 
 use MabeEnum\EnumSet;
 
-class PathManager
-{
-    private static function getHttpPostKeyring(): ?IHttpMethodKeyring
-    {
+class PathManager {
+    private static function getHttpPostKeyring(): ?IHttpMethodKeyring {
         if (array_key_exists("CONTENT_TYPE", $_SERVER)) {
             $contentPart = $_SERVER["CONTENT_TYPE"];
 
@@ -19,8 +17,7 @@ class PathManager
         return null;
     }
 
-    private static function getDefaultSharePoint(PathManager $pathManager): \stdClass
-    {
+    private static function getDefaultSharePoint(PathManager $pathManager): \stdClass{
         // default share point
         $sharePoint = new \stdClass();
         $sharePoint->skipTokenValidation = false;
@@ -39,8 +36,7 @@ class PathManager
     private $pathes;
     private $httpMethodKeyrings;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->pathes = array();
 
         $this->httpMethodKeyrings = [
@@ -57,13 +53,11 @@ class PathManager
     }
 
     // key value pairs
-    public function registerPath(PathBase $path)
-    {
+    public function registerPath(PathBase $path) {
         array_push($this->pathes, $path);
     }
 
-    public function handlePathesWithErrorHandling($fullStackCallback, ?callable $singleErrorCallback = null)
-    {
+    public function handlePathesWithErrorHandling($fullStackCallback, ?callable $singleErrorCallback = null) {
         try {
             $this->handlePathes();
         } catch (\Exception $error) {
@@ -86,8 +80,7 @@ class PathManager
         }
     }
 
-    public function handlePathes(?\stdClass $sharePoint = null)
-    {
+    public function handlePathes(?\stdClass $sharePoint = null) {
         if (!is_null($sharePoint)) {
             // increase by one
             $sharePoint->handlePathesRun++;
@@ -119,8 +112,7 @@ class PathManager
         }
     }
 
-    public function hasAnyHttpMethodKeyring(EnumSet $paramTypeSet, ?array &$paramTypeValueIntersection = null): bool
-    {
+    public function hasAnyHttpMethodKeyring(EnumSet $paramTypeSet, ?array &$paramTypeValueIntersection = null): bool {
         $first = $paramTypeSet->getValues();
         $keyrings = $this->httpMethodKeyrings;
         $second = array_keys($keyrings);
@@ -129,8 +121,7 @@ class PathManager
         return $isNotEmpty;
     }
 
-    public function hasAnyHttpKey(Parameter $param, &$outFirstKeyring = null, ?array $paramTypeValueIntersection = null)
-    {
+    public function hasAnyHttpKey(Parameter $param, &$outFirstKeyring = null, ?array $paramTypeValueIntersection = null) {
         $paramTypeSet = $param->getParamTypeSet();
         $hasAnyKeyring = false;
 
