@@ -9,12 +9,17 @@ abstract class PathBase {
      * @param array $paramNameValuePairs Simple paramName => paramValue items are expected.
      * @return string
      */
-    public static function buildPathQueryFactory(PathBase $path, ?array $paramNameValuePairs = null): string {
+    public static function pathQueryFactory(PathBase $path, ?array $paramNameValuePairs = null, ?array $excludeParamNames = null): string {
         $string = "";
 
         foreach ($path->params as $param) {
             $param = Parameter::reto($param);
             $paramName = $param->getParamName();
+
+            if (!is_null($excludeParamNames) && in_array($paramName, $excludeParamNames)) {
+                continue;
+            }
+
             $compareMode = $param->getCompareMode();
             $isOptional = $param->getIsOptional();
             $hasNameValuePair = isset($paramNameValuePairs[$paramName]);
@@ -73,10 +78,6 @@ abstract class PathBase {
             }
         }
 
-        if ($string) {
-            $string = "?" . $string;
-        }
-
         return $string;
     }
 
@@ -104,8 +105,8 @@ abstract class PathBase {
      * @param array $paramNameValuePairs Simple paramName => paramValue items are expected.
      * @return string
      */
-    public function buildPathQuery(?array $paramNameValuePairs = null): string {
-        return self::buildPathQueryFactory($this, $paramNameValuePairs);
+    public function buildPathQuery(?array $paramNameValuePairs = null, ?array $excludeParamNames = null): string {
+        return self::pathQueryFactory($this, $paramNameValuePairs, $excludeParamNames);
     }
 
     public function tryHandlePath($sharePoint) {

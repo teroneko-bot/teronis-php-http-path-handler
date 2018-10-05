@@ -29,5 +29,6 @@ final class PathBaseTest extends TestCase {
         ];
 
         $this->assertEquals($path->buildPathQuery($array), "?target=test&validNumber=2&badNumber");
+        $this->assertEquals($path->buildPathQuery($array, ["target"]), "?validNumber=2&badNumber");
     }
 }
