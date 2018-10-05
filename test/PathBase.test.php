@@ -28,6 +28,6 @@ final class PathBaseTest extends TestCase {
             "optionalBadNumber" => ["anyvaluehere"],
         ];
 
-        $this->assertEquals($path->createPathQuery($array), "?target=test&validNumber=2&badNumber");
+        $this->assertEquals($path->buildPathQuery($array), "?target=test&validNumber=2&badNumber");
     }
 }

@@ -1,34 +1,16 @@
 <?php namespace Teronis\HttpPathHandler;
 
 abstract class PathBase {
-    private $params;
-    private $isSealed;
-
-    public function __construct() {
-        $this->params = [];
-        $this->defineParams();
-        $this->isSealed = false;
-    }
-
-    protected function defineParams() {
-        return;
-    }
-
-    protected function includeParam(Parameter $param) {
-        $param->seal();
-        $this->params[$param->getParamName()] = $param;
-    }
-
     /**
      * Create an URL-query. Only simple value types (int, string, ...) are supported.
      *
      * @param array $paramNameValuePairs Simple paramName => paramValue items are expected.
      * @return string
      */
-    public function createPathQuery(?array $paramNameValuePairs = null): string {
+    public static function buildPathQueryFactory(PathBase $path, ?array $paramNameValuePairs = null): string {
         $string = "";
 
-        foreach ($this->params as $param) {
+        foreach ($path->params as $param) {
             $param = Parameter::reto($param);
             $paramName = $param->getParamName();
             $compareMode = $param->getCompareMode();
@@ -93,6 +75,34 @@ abstract class PathBase {
         }
 
         return $string;
+    }
+
+    private $params;
+    private $isSealed;
+
+    public function __construct() {
+        $this->params = [];
+        $this->defineParams();
+        $this->isSealed = false;
+    }
+
+    protected function defineParams() {
+        return;
+    }
+
+    protected function includeParam(Parameter $param) {
+        $param->seal();
+        $this->params[$param->getParamName()] = $param;
+    }
+
+    /**
+     * Create an URL-query. Only simple value types (int, string, ...) are supported.
+     *
+     * @param array $paramNameValuePairs Simple paramName => paramValue items are expected.
+     * @return string
+     */
+    public function buildPathQuery(?array $paramNameValuePairs = null): string {
+        return self::buildPathQueryFactory($this, $paramNameValuePairs);
     }
 
     public function tryHandlePath($sharePoint) {
