@@ -1,5 +1,7 @@
 <?php namespace Teronis\HttpPathHandler;
 
+use Teronis\Core\HttpUtilities;
+
 abstract class PathBase {
     /**
      * Create an URL-query. Only simple value types (int, string, ...) are supported.
@@ -66,6 +68,7 @@ abstract class PathBase {
 
             // Check if value is truthy because an empty string cannot be represented in the query.
             if ($paramValue) {
+                $paramValue = HttpUtilities::encodeURIComponent($paramValue);
                 $string = $string . "=" . $paramValue;
             }
         }
