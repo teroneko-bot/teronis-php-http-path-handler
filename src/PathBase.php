@@ -22,7 +22,7 @@ abstract class PathBase {
 
             $compareMode = $param->getCompareMode();
             $isOptional = $param->getIsOptional();
-            $hasNameValuePair = isset($paramNameValuePairs[$paramName]);
+            $hasNameValuePair = array_key_exists($paramName, $paramNameValuePairs);
             $paramValue = null;
 
             // Skip the parameter, if parameter is optional
