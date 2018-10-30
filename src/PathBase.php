@@ -115,13 +115,14 @@ abstract class PathBase {
         $args->{SHAREPOINT} = $sharePoint;
 
         foreach ($this->params as $param) {
-            if (!$pathManager->hasAnyHttpMethodKeyring($param->getParamTypeSet(), $paramTypeValueIntersection)) {
+            $paramIsOptional = $param->getIsOptional();
+
+            if (!$pathManager->hasAnyHttpMethodKeyring($param->getParamTypeSet(), $paramTypeValueIntersection) && !$paramIsOptional) {
                 return;
             }
 
             $paramName = $param->getParamName();
             $hasHttpKey = $pathManager->hasAnyHttpKey($param, $firstKeyring, $paramTypeValueIntersection);
-            $paramIsOptional = $param->getIsOptional();
 
             if (!$hasHttpKey && !$paramIsOptional) {
                 return;
